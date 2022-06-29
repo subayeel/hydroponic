@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff9EB23B),
+          leading: Icon(Icons.menu),
         ),
         backgroundColor: Color(0xffE0DECA),
         body: Padding(
