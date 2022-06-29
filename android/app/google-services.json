@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "456383596415",
+    "project_id": "hypdroponic",
+    "storage_bucket": "hypdroponic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456383596415:android:d8b0d8509ff7bf5362fc4a",
+        "android_client_info": {
+          "package_name": "com.example.hydroponic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456383596415-mt1c1g26arfiku4hn7conao5dhefqovo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqNSL8PDFEiL_KfoEESlgkdTsFCRAwsho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456383596415-mt1c1g26arfiku4hn7conao5dhefqovo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456383596415:android:489872222cf9922462fc4a",
+        "android_client_info": {
+          "package_name": "com.example.hydroponic_system"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456383596415-mt1c1g26arfiku4hn7conao5dhefqovo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqNSL8PDFEiL_KfoEESlgkdTsFCRAwsho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456383596415-mt1c1g26arfiku4hn7conao5dhefqovo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
