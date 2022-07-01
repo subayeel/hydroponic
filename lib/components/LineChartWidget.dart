@@ -8,6 +8,8 @@ class LineChartWidget extends StatelessWidget {
     const Color(0xff02d39a),
   ];
 
+  LineChartWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => LineChart(
         LineChartData(
@@ -47,7 +49,7 @@ class LineChartWidget extends StatelessWidget {
                 FlSpot(9.5, 3),
                 FlSpot(11, 4),
               ],
-              isCurved: true,
+              isCurved: false,
 
               barWidth: 5,
               // dotData: FlDotData(show: false),

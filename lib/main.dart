@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'mainscreens/AtmosphericTemperatureDetails.dart';
 import 'mainscreens/ElectricalConductivityDetails.dart';
+import 'mainscreens/LdrDetails.dart';
 import 'mainscreens/PhDetails.dart';
 import 'mainscreens/WaterLevelDetails.dart';
 import 'mainscreens/WaterTempDetails.dart';
@@ -43,15 +45,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   double phWater = 0,
       waterTemp = 0,
-      elecCondictivity = 0,
+      elecConductivity = 0,
       atmosphericTemp = 0,
       waterLevel = 0,
-      humidity = 0;
+      humidity = 0,
+      ldr = 0;
 
   @override
   void initState() {
     super.initState();
     getDetails();
+    getRealtimeData();
   }
 
   Future getDetails() async {
@@ -62,20 +66,43 @@ class _MyHomePageState extends State<MyHomePage> {
       Map<String, dynamic>? data = docSnapshot.data();
       var dphWater = await data?['phWater'].toDouble();
       var dwaterTemp = await data?['waterTemp'].toDouble();
-      var delecCondictivity = await data?['elecCondictivity'].toDouble();
+      var delecConductivity = await data?['elecConductivity'].toDouble();
       var datmosphericTemp = await data?['atmosphericTemp'].toDouble();
       var dwaterLevel = await data?['waterLevel'].toDouble();
       var dhumidity = await data?['humidity'].toDouble();
-
-      setState(() {
-        phWater = dphWater;
-        waterTemp = dwaterTemp;
-        elecCondictivity = delecCondictivity;
-        atmosphericTemp = datmosphericTemp;
-        waterLevel = dwaterLevel;
-        humidity = dhumidity;
-      });
     }
+  }
+
+  Future getRealtimeData() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("");
+
+    // Get the Stream
+    Stream<DatabaseEvent> stream = ref.onValue;
+
+// Subscribe to the stream!
+    stream.listen((DatabaseEvent event) async {
+// Print the data of the snapshot
+      var e = event.snapshot.value;
+      Map<dynamic, dynamic> map = event.snapshot.value as Map;
+
+      var dphWater = await map['phWater'].toDouble();
+      var dwaterTemp = await map['waterTemp'].toDouble();
+      var delecConductivity = await map['elecConductivity'].toDouble();
+      var datmosphericTemp = await map['atmosphericTemp'].toDouble();
+      var dwaterLevel = await map['waterLevel'].toDouble();
+      var dhumidity = await map['humidity'].toDouble();
+      var dldr = await map['ldr'].toDouble();
+
+      setState(() async {
+        phWater = await dphWater;
+        waterTemp = await dwaterTemp;
+        elecConductivity = await delecConductivity;
+        atmosphericTemp = await datmosphericTemp;
+        waterLevel = await dwaterLevel;
+        humidity = await dhumidity;
+        ldr = await dldr;
+      });
+    });
   }
 
   @override
@@ -184,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               DetailsCard(
-                detailValue: elecCondictivity,
+                detailValue: elecConductivity,
                 image: 'images/electrical-energy.png',
                 detailTitle: 'Electrical Conductivity',
                 onClick: () {
@@ -217,7 +244,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       MaterialPageRoute(
                           builder: (context) => const WaterLevelDetails()));
                 },
-              )
+              ),
+              DetailsCard(
+                detailValue: ldr,
+                image: 'images/ldr-icon.png',
+                detailTitle: 'LDR',
+                onClick: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LdrDetails()));
+                },
+              ),
             ],
           ),
         ),
