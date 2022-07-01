@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/LineChartPage.dart';
+
 class PhDetails extends StatefulWidget {
   const PhDetails({Key? key}) : super(key: key);
 
@@ -21,18 +23,11 @@ class _PhDetailsState extends State<PhDetails> {
         backgroundColor: Color(0xffE0DECA),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: Center(
-                child: Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: Colors.lightGreenAccent,
-                    height: size.height * 0.3,
-                    width: size.width * 0.9,
-                    child: const Text("Graph"),
-                  ),
-                ),
+            const Expanded(
+              flex: 5,
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: LineChartPage(),
               ),
             ),
             Expanded(

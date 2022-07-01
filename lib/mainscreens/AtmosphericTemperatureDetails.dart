@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hydroponic_system/components/LineChartPage.dart';
 
 class AtmosphericTemperatureDetails extends StatefulWidget {
   const AtmosphericTemperatureDetails({Key? key}) : super(key: key);
@@ -23,15 +24,11 @@ class _AtmosphericTemperatureDetails
         backgroundColor: Color(0xffE0DECA),
         body: Column(
           children: [
-            Center(
-              child: Expanded(
-                flex: 2,
-                child: Container(
-                  color: Colors.lightGreenAccent,
-                  height: size.height * 0.3,
-                  width: size.width * 0.9,
-                  child: const Text("Graph"),
-                ),
+            const Expanded(
+              flex: 5,
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: LineChartPage(),
               ),
             ),
             Expanded(
