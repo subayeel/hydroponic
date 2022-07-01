@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../components/LineChartPage.dart';
@@ -11,6 +12,35 @@ class WaterLevelDetails extends StatefulWidget {
 }
 
 class _WaterLevelDetails extends State<WaterLevelDetails> {
+  double waterLevel = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    getRealtimeData();
+  }
+
+  Future getRealtimeData() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("");
+
+    // Get the Stream
+    Stream<DatabaseEvent> stream = ref.onValue;
+
+// Subscribe to the stream!
+    stream.listen((DatabaseEvent event) async {
+// Print the data of the snapshot
+      var e = event.snapshot.value;
+      Map<dynamic, dynamic> map = event.snapshot.value as Map;
+
+      var dwaterLevel = await map['waterLevel'].toDouble();
+
+      setState(() {
+        waterLevel = dwaterLevel;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -40,7 +70,7 @@ class _WaterLevelDetails extends State<WaterLevelDetails> {
                       Text("Current Volume:"),
                       SizedBox(width: size.width * 0.01),
                       Text(
-                        "960 mL",
+                        "${waterLevel} mL",
                         style: kPrimaryTextStyle,
                       )
                     ],
@@ -69,7 +99,7 @@ class _WaterLevelDetails extends State<WaterLevelDetails> {
                             child: TextButton(
                               onPressed: () {},
                               child: Text(
-                                "Increase\nVolume\n(-10mL)",
+                                "Increase\nVolume\n(+10mL)",
                                 style: kSmallTextStyle,
                               ),
                             ),

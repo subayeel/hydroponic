@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -54,24 +53,24 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    getDetails();
+
     getRealtimeData();
   }
 
-  Future getDetails() async {
-    var collection = FirebaseFirestore.instance.collection('systemDetails');
-    var docSnapshot = await collection.doc("details").get();
-
-    if (docSnapshot.exists) {
-      Map<String, dynamic>? data = docSnapshot.data();
-      var dphWater = await data?['phWater'].toDouble();
-      var dwaterTemp = await data?['waterTemp'].toDouble();
-      var delecConductivity = await data?['elecConductivity'].toDouble();
-      var datmosphericTemp = await data?['atmosphericTemp'].toDouble();
-      var dwaterLevel = await data?['waterLevel'].toDouble();
-      var dhumidity = await data?['humidity'].toDouble();
-    }
-  }
+  // Future getDetails() async {
+  //   var collection = FirebaseFirestore.instance.collection('systemDetails');
+  //   var docSnapshot = await collection.doc("details").get();
+  //
+  //   if (docSnapshot.exists) {
+  //     Map<String, dynamic>? data = docSnapshot.data();
+  //     var dphWater = await data?['phWater'].toDouble();
+  //     var dwaterTemp = await data?['waterTemp'].toDouble();
+  //     var delecConductivity = await data?['elecConductivity'].toDouble();
+  //     var datmosphericTemp = await data?['atmosphericTemp'].toDouble();
+  //     var dwaterLevel = await data?['waterLevel'].toDouble();
+  //     var dhumidity = await data?['humidity'].toDouble();
+  //   }
+  // }
 
   Future getRealtimeData() async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("");
@@ -93,14 +92,14 @@ class _MyHomePageState extends State<MyHomePage> {
       var dhumidity = await map['humidity'].toDouble();
       var dldr = await map['ldr'].toDouble();
 
-      setState(() async {
-        phWater = await dphWater;
-        waterTemp = await dwaterTemp;
-        elecConductivity = await delecConductivity;
-        atmosphericTemp = await datmosphericTemp;
-        waterLevel = await dwaterLevel;
-        humidity = await dhumidity;
-        ldr = await dldr;
+      setState(() {
+        phWater = dphWater;
+        waterTemp = dwaterTemp;
+        elecConductivity = delecConductivity;
+        atmosphericTemp = datmosphericTemp;
+        waterLevel = dwaterLevel;
+        humidity = dhumidity;
+        ldr = dldr;
       });
     });
   }
@@ -113,6 +112,30 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           backgroundColor: Color(0xff9EB23B),
           leading: Icon(Icons.menu),
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  Icons.refresh,
+                  size: 26.0,
+                ),
+              ),
+            )
+          ],
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                height: 50,
+                image: AssetImage(
+                  "images/leaf-logo.png",
+                ),
+              ),
+            ],
+          ),
         ),
         backgroundColor: Color(0xffE0DECA),
         body: Padding(
